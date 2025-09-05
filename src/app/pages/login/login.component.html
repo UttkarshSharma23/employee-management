@@ -1,0 +1,22 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <h2>Admin Login</h2>
+      <p class="subtitle">Employee Leave Management System</p>
+    </div>
+    <form>
+      <div class="form-group">
+        <label for="email">Email</label>
+       <input [(ngModel)]="employeeLogin.emailId" name="emailId" id="email" type="email" placeholder="Enter your email" />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input [(ngModel)]="employeeLogin.password" name="password" id="email" type="email" placeholder="Enter your email" />
+      </div>
+      <button type="submit"  (click)="onLogin()" class="login-btn">Login</button>
+      <div class="forgot-password">
+        <a href="#">Forgot Password?</a>
+      </div>
+    </form>
+  </div>
+</div>
