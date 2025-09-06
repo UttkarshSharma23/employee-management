@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -16,5 +17,11 @@ export class LayoutComponent {
   ];
 
   constructor(
+    private _router : Router
   ) { }
+
+  onLogout() {
+    localStorage.clear();
+    this._router.navigateByUrl('/login');
+  }
 }
