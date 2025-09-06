@@ -1,0 +1,52 @@
+.layout-container {
+  min-height: 100vh;
+  background: #f5f6fa;
+}
+
+.sidebar {
+  width: 240px;
+  min-height: 100vh;
+  background: #fff;
+  border-right: 1px solid #dfe6e9;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border-radius: 0 16px 16px 0;
+  transition: all 0.2s ease;
+}
+
+.sidebar-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #0984e3 0%, #00b894 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  margin: 0;
+  padding-bottom: 0.5rem;
+}
+
+.nav-link {
+  color: #2d3436;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 0.7rem 1rem;
+  margin-bottom: 0.5rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(9, 132, 227, 0.08);
+    color: #0984e3;
+  }
+
+  &.active {
+    background: linear-gradient(90deg, #0984e3 0%, #00b894 100%);
+    color: #fff !important;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(9, 132, 227, 0.2);
+  }
+}
+
+.main-content {
+  background: #f9fbfd;
+  border-radius: 16px 0 0 16px;
+  padding: 1.5rem;
+}

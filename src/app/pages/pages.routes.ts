@@ -6,25 +6,19 @@ import { LeaveComponent } from "./leave";
 import { LayoutComponent } from "./layout";
 
 export const routes : Routes = [
-   {
-    path: 'login',
-    component: LoginComponent
-  },
+   { path: 'login', component: LoginComponent },
+
   {
-    path: 'dashboard',
-    component: DashboardComponent
+    path: '',
+    component: LayoutComponent,
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'employee', component: EmployeeComponent },
+      { path: 'leave', component: LeaveComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' } 
+    ]
   },
-  {
-    path: 'employee',
-    component: EmployeeComponent
-  },
-  {
-    path: 'leave',
-    component: LeaveComponent
-  },
-  {
-    path: 'layout',
-    component: LayoutComponent
-  }
+
+  { path: '**', redirectTo: 'login' }
 
 ]
