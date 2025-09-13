@@ -11,9 +11,9 @@ import { Router } from "@angular/router";
 export class LayoutComponent {
 
  menuItems = [
-    { name: 'Dashboard', route: '/dashboard', icon: '📊' },
-    { name: 'Employees', route: '/employee', icon: '👨‍💼' },
-    { name: 'Leave Management', route: '/leave', icon: '🗓️' }
+    { name: 'Dashboard', route: 'dashboard', icon: '📊' },
+    { name: 'Employees', route: 'employee', icon: '👨‍💼' },
+    { name: 'Leave Management', route: 'leave', icon: '🗓️' }
   ];
 
   constructor(
@@ -22,6 +22,6 @@ export class LayoutComponent {
 
   onLogout() {
     localStorage.clear();
-    this._router.navigateByUrl('/login');
+    this._router.navigateByUrl('login');
   }
 }

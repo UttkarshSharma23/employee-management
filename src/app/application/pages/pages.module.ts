@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { components, providers } from "./declarations";
-import { Router, RouterModule } from "@angular/router";
+import { RouterModule } from "@angular/router";
 import { routes } from "./pages.routes";
 import { CommonModule } from "@angular/common";
 
