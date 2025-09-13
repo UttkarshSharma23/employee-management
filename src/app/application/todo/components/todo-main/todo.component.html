@@ -1,1 +1,34 @@
-<p>Todo Works</p>
+<div class="todo-container">
+  <h3 class="todo-title">My Todos</h3>
+
+  <div class="todo-input-box">
+    <form (submit)="addTodo()">
+      <input
+        type="text"
+        [(ngModel)]="newTodo"
+        name="newTodo"
+        placeholder="Add a new todo"
+        required
+      />
+      <button type="submit" class="btn-add">Add Todo</button>
+    </form>
+  </div>
+
+  <!-- <ul class="todo-list">
+    <li *ngFor="let todo of todos; let i = index" [class.completed]="todo.completed">
+      <span (click)="toggleTodo(todo)">{{ todo.todo }}</span>
+      <button (click)="removeTodo(i)" class="btn-delete">🗑️</button>
+    </li>
+  </ul> -->
+
+  @if (!loading) {
+    <ul class="todo-list">
+      <li *ngFor="let todo of todos" [class.completed]="todo.completed">
+         <span>{{ todo.todo }}</span>
+      <!-- <span class="badge" [class.done]="todo.completed">
+        {{ todo.completed ? '✔️ Done' : '❌ Pending' }}
+      </span> -->
+      </li>
+    </ul>
+  }
+</div>
