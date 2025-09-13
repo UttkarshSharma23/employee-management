@@ -15,5 +15,9 @@ export class EmployeeService {
     const body = { emailId, password };
     return this._http.post<any>(this._endPoint.postEmployeeLeave(), body)
   }
+
+  getAllEmployees() : Observable<any>{
+    return this._http.get<any>(this._endPoint.getAllEmployees());
+  }
 }
 
