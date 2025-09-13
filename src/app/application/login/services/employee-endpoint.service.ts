@@ -3,12 +3,16 @@ import { Injectable } from '@angular/core';
 @Injectable()
 
 export class EmployeeEndpointService {
+
+  baseEndPoint : string  = 'https://freeapi.miniprojectideas.com/api';
+
+
   postEmployeeLeave(): string {
-    return 'https://freeapi.miniprojectideas.com/api/EmployeeLeave/Login';
+    return `${this.baseEndPoint}/EmployeeLeave/Login`;
   }
 
   getAllEmployees() : string {
-    return 'https://freeapi.miniprojectideas.com/api/EmployeeLeave/GetEmployees';
+    return `${this.baseEndPoint}/EmployeeLeave/GetEmployees`;
   }
 }
 
