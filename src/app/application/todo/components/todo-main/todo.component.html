@@ -1,11 +1,12 @@
 <div class="todo-container">
   <h3 class="todo-title">My Todos</h3>
 
+  <!-- Add New Todo -->
   <div class="todo-input-box">
-    <form (submit)="addTodo()">
+    <form (submit)="addTodo()" class="todo-form">
       <input
         type="text"
-        [(ngModel)]="newTodo"
+        [(ngModel)]="newTodoText"
         name="newTodo"
         placeholder="Add a new todo"
         required
@@ -14,21 +15,89 @@
     </form>
   </div>
 
-  <!-- <ul class="todo-list">
-    <li *ngFor="let todo of todos; let i = index" [class.completed]="todo.completed">
-      <span (click)="toggleTodo(todo)">{{ todo.todo }}</span>
-      <button (click)="removeTodo(i)" class="btn-delete">🗑️</button>
-    </li>
-  </ul> -->
+</div>
 
-  @if (!loading) {
-    <ul class="todo-list">
-      <li *ngFor="let todo of todos" [class.completed]="todo.completed">
-         <span>{{ todo.todo }}</span>
-      <!-- <span class="badge" [class.done]="todo.completed">
-        {{ todo.completed ? '✔️ Done' : '❌ Pending' }}
-      </span> -->
-      </li>
-    </ul>
-  }
+<!-- Table for todo data -->
+ <div class="table-responsive p-4" *ngIf="!loading">
+  <table class="table table-hover table-bordered todo-table">
+    <thead class="table-light">
+      <tr>
+        <th class="text-center align-middle" style="width: 50px;">✔</th>
+        <th>Todo</th>
+        <th class="text-center" style="width: 150px;">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let todo of todos; let i = index">
+        <!-- Checkbox -->
+        <td class="text-center align-middle">
+          <input
+            type="checkbox"
+            class="form-check-input custom-checkbox"
+            [checked]="todo.completed"
+            (change)="toggleCompleted(todo)"
+          />
+        </td>
+
+        <!-- Todo Text -->
+        <td class="align-middle">
+          <!-- View mode -->
+          <span
+            *ngIf="editingTodoId !== todo.id"
+            [class.text-decoration-line-through]="todo.completed"
+            class="todo-text"
+          >
+            {{ todo.todo }}
+          </span>
+
+          <!-- Edit mode -->
+          <input
+            *ngIf="editingTodoId === todo.id"
+            type="text"
+            [(ngModel)]="editText"
+            name="editTodo"
+            class="form-control"
+            placeholder="Update todo..."
+          />
+        </td>
+
+        <!-- Actions -->
+        <td class="text-center align-middle">
+          <!-- Normal mode -->
+          <i
+            *ngIf="editingTodoId !== todo.id"
+            [class]="icons.getIcon('edit') + ' text-primary mx-2'"
+            style="cursor: pointer"
+            title="Edit"
+            (click)="startEdit(todo)"
+          ></i>
+
+          <!-- Edit mode -->
+          <i
+            *ngIf="editingTodoId === todo.id"
+            [class]="icons.getIcon('save') + ' text-success mx-2'"
+            style="cursor: pointer; font-size: 1.2rem"
+            title="Save"
+            (click)="saveEdit(todo)"
+          ></i>
+
+          <i
+            *ngIf="editingTodoId === todo.id"
+            [class]="icons.getIcon('cancel') + ' text-secondary mx-2'"
+            style="cursor: pointer; font-size: 1.2rem"
+            title="Cancel"
+            (click)="cancelEdit()"
+          ></i>
+
+          <!-- Delete -->
+          <i
+            [class]="icons.getIcon('delete') + ' text-danger mx-2'"
+            style="cursor: pointer"
+            title="Delete"
+            (click)="removeTodo(i)"
+          ></i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
