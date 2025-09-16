@@ -1,3 +1,4 @@
+import { TodoStore } from "../store";
 import { TodoComponent } from "./components";
 import { TodoEndpointService, TodosService } from "./services";
 
@@ -7,5 +8,6 @@ export const components = [
 
 export const providers = [
   TodoEndpointService,
-  TodosService
+  TodosService,
+  TodoStore
 ]

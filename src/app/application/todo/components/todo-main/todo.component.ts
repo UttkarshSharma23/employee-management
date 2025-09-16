@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Todo } from "../../../../models";
-import { TodosService } from "../../services";
 import { IconsService } from "../../../../shared";
+import { TodoStore } from "../../../store";
+import { Observable } from "rxjs";
 
 @Component({
   selector: 'todo',
@@ -11,99 +12,55 @@ import { IconsService } from "../../../../shared";
 
 
 export class TodoComponent implements OnInit {
-  todos: Todo[] = [];
-  newTodoText: string = '';
-  loading = true;
-
-  editingTodoId: number | null = null;
-  editText: string = '';
+  todos$!: Observable<Todo[]>;
+  loading$!: Observable<boolean>;
+  newTodoText = '';
 
   constructor(
-    private _todo: TodosService,
-    public icons: IconsService
+    public icons: IconsService,
+    public store : TodoStore
   ) { }
 
   ngOnInit(): void {
-    this._fetchAllTodos();
+    this.todos$ = this.store.todos$;
+    this.loading$ = this.store.loading$;
+    this.store.loadTodos();
   }
 
-  // NOTE : Getting All Todos
-  private _fetchAllTodos() {
-    this._todo.getAllTodos().subscribe({
-      next: (todosResponse) => {
-        this.todos = todosResponse.todos;
-        this.loading = false;
-      },
-      error: (err) => {
-        console.log('Failed to fetch the todos', err);
-        this.loading = false;
-      }
-    })
+  addTodo(todoId : number) {
+    this.store.addTodo(this.newTodoText,todoId);
+    this.newTodoText = '';
   }
 
-  // NOTE : Fetching All Todos
-  addTodo() {
-    if (!this.newTodoText.trim()) return;
-
-    let userID = 25;
-    this._todo.createTodo(this.newTodoText, userID).subscribe({
-      next: (newTodo) => {
-        console.log('New Todo created:', newTodo);
-        this.todos.unshift(newTodo);
-        this.newTodoText = '';
-      },
-      error: (err) => console.error('Failed to add todo', err)
-    });
+  toggleCompleted(todo : Todo) {
+    this.store.updateTodo(todo,  {completed : !todo.completed});
   }
 
-  //NOTE : Updating the Todo
-  toggleCompleted(completedTodo: Todo) {
-    const updated = { completed: !completedTodo.completed };
-    this._todo.updateTodo(completedTodo.id, updated).subscribe({
-      next: (res) => (completedTodo.completed = res.completed),
-      error: (err) => console.error('Failed to update todo', err),
-    });
+  startEditing(todo: Todo) {
+    this.store.startEdit(todo);
   }
 
-  updateTodo(updatedTodo: Todo) {
-    if (!updatedTodo.todo.trim()) return; // prevent empty values
-    this._todo.updateTodo(updatedTodo.id, { todo: updatedTodo.todo }).subscribe({
-      next: (res) => {
-        updatedTodo.todo = res.todo; // reflect updated text
-      },
-      error: (err) => console.error('Failed to update todo', err),
-    });
+  saveEdit(todo: Todo) {
+    this.store.saveEdit(todo);
   }
 
-   startEdit(todo: Todo) {
-    this.editingTodoId = todo.id;
-    this.editText = todo.todo;
+  cancelEdit() {
+    this.store.cancelEdit();
   }
 
-   saveEdit(todo: Todo) {
-    if (!this.editText.trim()) return;
-    this._todo.updateTodo(todo.id, { todo: this.editText }).subscribe({
-      next: (res) => {
-        todo.todo = res.todo;
-        this.cancelEdit();
-      }
-    });
+  removeTodo(todo : Todo) {
+    this.store.removeTodo(todo.id);
   }
 
-    cancelEdit() {
-    this.editingTodoId = null;
-    this.editText = '';
+  get editingTodoId() {
+    return this.store.editingId;
   }
 
-  
-// NOTE : Deleting the Todo
-  removeTodo(index: number) {
-    this._todo.deleteTodo(index).subscribe({
-      next: () => {
-        this.todos.splice(index, 1);
-      },
-      error: (err) => console.error('Failed to delete todo', err),
-    });
+  get editText() {
+    return this.store.currentEditText;
   }
 
+  set editText(value: string) {
+    this.store.currentEditText = value;
+  }
 }
