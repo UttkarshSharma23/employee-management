@@ -1,4 +1,5 @@
 import { EmployeeEndpointService, EmployeeService } from "../login/services";
+import { CountryDataComponent } from "./country-data";
 import { DashboardComponent } from "./dashboard";
 import { EmployeeComponent } from "./employee";
 import { LayoutComponent } from "./layout";
@@ -9,6 +10,7 @@ export const components = [
   EmployeeComponent,
   LayoutComponent,
   LeaveComponent,
+  CountryDataComponent
 ];
 
 

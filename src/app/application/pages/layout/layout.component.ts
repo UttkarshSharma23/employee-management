@@ -13,7 +13,8 @@ export class LayoutComponent {
  menuItems = [
     { name: 'Dashboard', route: 'dashboard', icon: '📊' },
     { name: 'Employees', route: 'employee', icon: '👨‍💼' },
-    { name: 'Leave Management', route: 'leave', icon: '🗓️' }
+    { name: 'Leave Management', route: 'leave', icon: '🗓️' },
+    { name: 'Country Data', route: 'country-data', icon: '🌍' }
   ];
 
   constructor(
