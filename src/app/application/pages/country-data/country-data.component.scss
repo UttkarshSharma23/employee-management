@@ -1,0 +1,98 @@
+.table-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem;
+  background: #f5f6fa;
+  min-height: 100vh;
+}
+
+.table-card {
+  background: #fff;
+  padding: 1.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  width: 100%;
+  max-width: 900px;
+  transition: box-shadow 0.2s;
+}
+
+.table-card:hover {
+  box-shadow: 0 12px 40px rgba(9, 132, 227, 0.18);
+}
+
+.table-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.table-header h2 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #0984e3 0%, #00b894 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #636e72;
+  margin-top: 0.3rem;
+  letter-spacing: 0.3px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.styled-table thead {
+  background: linear-gradient(90deg, #0984e3 0%, #00b894 100%);
+  color: #fff;
+  text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 0.9rem 1.2rem;
+  text-align: left;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.2s;
+}
+
+.styled-table tbody tr:hover {
+  background: #f9fbfd;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: none;
+}
+
+@media (max-width: 768px) {
+  .table-card {
+    padding: 1rem;
+  }
+
+  .styled-table th,
+  .styled-table td {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+  }
+
+  .table-header h2 {
+    font-size: 1.3rem;
+  }
+}

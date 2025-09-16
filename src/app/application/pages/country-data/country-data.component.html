@@ -1,0 +1,29 @@
+<div class="table-container">
+  <div class="table-card">
+    <div class="table-header">
+      <h2>Country Data</h2>
+      <p class="subtitle">Hierarchy Level Data of Country → Region → State → District</p>
+    </div>
+
+    <div class="table-responsive">
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Region</th>
+            <th>State</th>
+            <th>District</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of countryData">
+            <td>{{ row.country }}</td>
+            <td>{{ row.region }}</td>
+            <td>{{ row.state }}</td>
+            <td>{{ row.district }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
