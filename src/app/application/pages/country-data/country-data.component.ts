@@ -10,7 +10,8 @@ export class CountryDataComponent implements OnInit {
 
   countryData: any[] = [];
 
-  apiResponse = {
+  apiResponse = [
+  {
     country: "India",
     regions: [
       {
@@ -36,7 +37,35 @@ export class CountryDataComponent implements OnInit {
         ]
       }
     ]
-  };
+  },
+  {
+    country: "USA",
+    regions: [
+      {
+        region: "East Coast",
+        states: [
+          {
+            state: "New York",
+            districts: ["Manhattan", "Brooklyn"]
+          },
+          {
+            state: "Massachusetts",
+            districts: ["Boston", "Cambridge"]
+          }
+        ]
+      },
+      {
+        region: "West Coast",
+        states: [
+          {
+            state: "California",
+            districts: ["Los Angeles", "San Francisco"]
+          }
+        ]
+      }
+    ]
+  }
+];
 
   ngOnInit() {
     // this._displayData();
@@ -46,40 +75,47 @@ export class CountryDataComponent implements OnInit {
 
   // NOTE : BruteForce Approach
   private _displayData() {
-    this.apiResponse.regions.forEach(region => {
-      region.states.forEach(state => {
-        state.districts.forEach((district, dIndex) => {
-          this.countryData.push({
-            country: (dIndex === 0 && state === region.states[0] && region === this.apiResponse.regions[0])
-              ? this.apiResponse.country
-              : "",
-            region: (dIndex === 0 && state === region.states[0])
-              ? region.region
-              : "",
-            state: (dIndex === 0)
-              ? state.state
-              : "",
-            district: district
+    this.apiResponse.forEach(country => {
+      country.regions.forEach(region => {
+        region.states.forEach(state => {
+          state.districts.forEach((district, dIndex) => {
+            this.countryData.push({
+              country: (dIndex === 0 && region === country.regions[0] && state === region.states[0])
+                ? country.country
+                : "",
+              region: (dIndex === 0 && state === region.states[0])
+                ? region.region
+                : "",
+              state: (dIndex === 0)
+                ? state.state
+                : "",
+              district: district
+            });
           });
         });
       });
     });
-    console.log(this.countryData);
+   // console.log(this.countryData);
   }
 
 
   // NOTE : Optimized Approach
   private _optimizedDisplayData() {
-    this.countryData = this.apiResponse.regions.flatMap((region, rIndex) =>
+  this.countryData = this.apiResponse.flatMap((country, cIndex) =>
+    country.regions.flatMap((region, rIndex) =>
       region.states.flatMap((state, sIndex) =>
         state.districts.map((district, dIndex) => ({
-          country: rIndex === 0 && sIndex === 0 && dIndex === 0 ? this.apiResponse.country : "",
+          country: rIndex === 0 && sIndex === 0 && dIndex === 0 ? country.country : "",
           region: sIndex === 0 && dIndex === 0 ? region.region : "",
           state: dIndex === 0 ? state.state : "",
-          district
+          district : district
         }))
-      ));
-  //  console.log(this.countryData);
-  }
+      )
+    )
+  );
+  //console.log(this.countryData);
+}
+
+
 }
 
