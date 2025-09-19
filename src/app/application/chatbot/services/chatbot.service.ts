@@ -10,6 +10,6 @@ export class chatbotService{
   getBotreply(userMessage : string) : Observable<string>{
 
      // For now, mock response
-      return of("this is a bot to reply:" + userMessage);
+      return of("🤖 JARVIS: You said : " + userMessage);
   }
 }

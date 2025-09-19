@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { CountryDataModel } from "../../../shared/excel-converter/models";
+import { ExcelConverterService } from "../../../shared/excel-converter/services";
 
 @Component({
   selector: 'country-data',
@@ -8,64 +10,67 @@ import { Component, OnInit } from "@angular/core";
 
 export class CountryDataComponent implements OnInit {
 
-  countryData: any[] = [];
+  countryData: CountryDataModel[] = [];
 
   apiResponse = [
-  {
-    country: "India",
-    regions: [
-      {
-        region: "North",
-        states: [
-          {
-            state: "Delhi",
-            districts: ["New Delhi", "Central Delhi", "South Delhi"]
-          },
-          {
-            state: "Haryana",
-            districts: ["Gurgaon", "Faridabad"]
-          }
-        ]
-      },
-      {
-        region: "West",
-        states: [
-          {
-            state: "Rajasthan",
-            districts: ["Jaipur", "Jodhpur"]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    country: "USA",
-    regions: [
-      {
-        region: "East Coast",
-        states: [
-          {
-            state: "New York",
-            districts: ["Manhattan", "Brooklyn"]
-          },
-          {
-            state: "Massachusetts",
-            districts: ["Boston", "Cambridge"]
-          }
-        ]
-      },
-      {
-        region: "West Coast",
-        states: [
-          {
-            state: "California",
-            districts: ["Los Angeles", "San Francisco"]
-          }
-        ]
-      }
-    ]
-  }
-];
+    {
+      country: "India",
+      regions: [
+        {
+          region: "North",
+          states: [
+            {
+              state: "Delhi",
+              districts: ["New Delhi", "Central Delhi", "South Delhi"]
+            },
+            {
+              state: "Haryana",
+              districts: ["Gurgaon", "Faridabad"]
+            }
+          ]
+        },
+        {
+          region: "West",
+          states: [
+            {
+              state: "Rajasthan",
+              districts: ["Jaipur", "Jodhpur"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      country: "USA",
+      regions: [
+        {
+          region: "East Coast",
+          states: [
+            {
+              state: "New York",
+              districts: ["Manhattan", "Brooklyn"]
+            },
+            {
+              state: "Massachusetts",
+              districts: ["Boston", "Cambridge"]
+            }
+          ]
+        },
+        {
+          region: "West Coast",
+          states: [
+            {
+              state: "California",
+              districts: ["Los Angeles", "San Francisco"]
+            }
+          ]
+        }
+      ]
+    }
+  ];
+
+
+  constructor(private _excel: ExcelConverterService) { }
 
   ngOnInit() {
     // this._displayData();
@@ -95,27 +100,34 @@ export class CountryDataComponent implements OnInit {
         });
       });
     });
-   // console.log(this.countryData);
+    // console.log(this.countryData);
   }
 
 
   // NOTE : Optimized Approach
   private _optimizedDisplayData() {
-  this.countryData = this.apiResponse.flatMap((country, cIndex) =>
-    country.regions.flatMap((region, rIndex) =>
-      region.states.flatMap((state, sIndex) =>
-        state.districts.map((district, dIndex) => ({
-          country: rIndex === 0 && sIndex === 0 && dIndex === 0 ? country.country : "",
-          region: sIndex === 0 && dIndex === 0 ? region.region : "",
-          state: dIndex === 0 ? state.state : "",
-          district : district
-        }))
+    this.countryData = this.apiResponse.flatMap((country, cIndex) =>
+      country.regions.flatMap((region, rIndex) =>
+        region.states.flatMap((state, sIndex) =>
+          state.districts.map((district, dIndex) => ({
+            country: rIndex === 0 && sIndex === 0 && dIndex === 0 ? country.country : "",
+            region: sIndex === 0 && dIndex === 0 ? region.region : "",
+            state: dIndex === 0 ? state.state : "",
+            district: district
+          }))
+        )
       )
-    )
-  );
-  //console.log(this.countryData);
-}
+    );
+    //console.log(this.countryData);
+  }
 
+
+  exportToExcel() {
+    this._excel.exportCountries(
+      { workbookName: 'Country_Mapping_Report' },
+      this.countryData
+    );
+  }
 
 }
 

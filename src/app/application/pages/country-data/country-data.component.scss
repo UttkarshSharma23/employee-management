@@ -81,6 +81,35 @@
   border-bottom: none;
 }
 
+/* Export button with premium look */
+.export-btn {
+  margin-bottom:4px ;
+  float: right;
+  background: linear-gradient(135deg, #001401, #00ad02);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 10px rgba(214, 48, 49, 0.25);
+  transition: all 0.25s ease-in-out;
+}
+
+.export-btn:hover {
+  background: linear-gradient(135deg, #76ff7d, #064a07);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(214, 48, 49, 0.35);
+}
+
+.export-btn i {
+  font-size: 1rem;
+}
+
 @media (max-width: 768px) {
   .table-card {
     padding: 1rem;
