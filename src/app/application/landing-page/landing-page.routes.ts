@@ -17,5 +17,9 @@ export const routes: Routes = [
   {
     path: 'todo',
     loadChildren: () => import('../todo/todo.module').then(t => t.TodoModule)
+  },
+  {
+    path :'chatbot',
+    loadChildren: () => import('../chatbot/chatbot.module').then(c => c.ChatbotModule)
   }
 ];
