@@ -1,1 +1,1 @@
-export * from './chartbot.service';
+export * from './chatbot.service';

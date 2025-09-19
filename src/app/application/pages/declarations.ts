@@ -1,3 +1,4 @@
+import { ExcelConverterService } from "../../shared/excel-converter/services";
 import { EmployeeEndpointService, EmployeeService } from "../login/services";
 import { CountryDataComponent } from "./country-data";
 import { DashboardComponent } from "./dashboard";
@@ -16,5 +17,6 @@ export const components = [
 
 export const providers = [
   EmployeeService,
-  EmployeeEndpointService
+  EmployeeEndpointService,
+  ExcelConverterService
 ];
